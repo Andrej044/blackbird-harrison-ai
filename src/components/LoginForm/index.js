@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import logo from '../../assets/logo.svg';
-
+import {validate} from "email-validator";
 
 export default function LoginForm() {
   const [showAlert, setShowAlert] = useState(false);
@@ -17,6 +17,7 @@ export default function LoginForm() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
+    console.log(validate(email))
 
     // Add validation code here
 
