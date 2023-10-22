@@ -12,15 +12,19 @@ import {validate} from "email-validator";
 
 export default function LoginForm() {
   const [showAlert, setShowAlert] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  
   const validateForm = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-    console.log(validate(email))
-
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
+    
     // Add validation code here
-
+    validate(email) ? setValidEmail(true) : setValidEmail(false);
+    regex.test(password) ? setValidPassword(true) : setValidPassword(false)
   }
 
   const handleSubmit = (event) => {
@@ -31,7 +35,7 @@ export default function LoginForm() {
       password: data.get('password'),
     });
     validateForm(event);
-    setShowAlert("Login Successful");
+    validEmail && validPassword ?setShowAlert("SignIn succesfull") : setShowAlert(false)
   };
 
   return (
@@ -80,6 +84,7 @@ export default function LoginForm() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
+              error={!validEmail}
               margin="normal"
               required
               fullWidth
@@ -90,6 +95,7 @@ export default function LoginForm() {
               autoFocus
             />
             <TextField
+              error={!validPassword}
               margin="normal"
               required
               fullWidth
