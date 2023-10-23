@@ -12,6 +12,7 @@ import {validate} from "email-validator";
 
 export default function LoginForm() {
   const [showAlert, setShowAlert] = useState(false);
+  const [emailValue, setEmailValue] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
   
@@ -44,6 +45,10 @@ export default function LoginForm() {
 
     email && password ? setShowAlert("success") : setShowAlert("error");
   };
+
+  const inputEmailHandler = (e) => {
+    setEmailValue(e.target.value)
+  }
 
   return (
     <>
@@ -95,11 +100,14 @@ export default function LoginForm() {
               margin="normal"
               required
               fullWidth
+              data-testid="email"
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
+              onInput={inputEmailHandler}
+              value={emailValue}
             />
             <TextField
               error={!validPassword}
