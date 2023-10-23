@@ -13,6 +13,7 @@ import {validate} from "email-validator";
 export default function LoginForm() {
   const [showAlert, setShowAlert] = useState(false);
   const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
   
@@ -48,6 +49,9 @@ export default function LoginForm() {
 
   const inputEmailHandler = (e) => {
     setEmailValue(e.target.value)
+  }
+  const inputPasswordHandler = (e) => {
+    setPasswordValue(e.target.value)
   }
 
   return (
@@ -119,6 +123,8 @@ export default function LoginForm() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onInput={inputPasswordHandler}
+              value={passwordValue}
             />
             <Button
               type="submit"
