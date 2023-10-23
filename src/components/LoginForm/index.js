@@ -15,18 +15,24 @@ export default function LoginForm() {
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
   
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
+
   const validateForm = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
     
+   
     // Add validation code here
+
     validate(email) ? setValidEmail(true) : setValidEmail(false);
     regex.test(password) ? setValidPassword(true) : setValidPassword(false)
+    return {
+      email : validate(email),
+      password:regex.test(password)
+    }
   }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -34,8 +40,9 @@ export default function LoginForm() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    validateForm(event);
-    validEmail && validPassword ?setShowAlert("SignIn succesfull") : setShowAlert(false)
+    const {email, password } = validateForm(event);
+
+    email && password ? setShowAlert("success") : setShowAlert("error");
   };
 
   return (
@@ -47,7 +54,7 @@ export default function LoginForm() {
           onClose={() => setShowAlert(false)}
           message={showAlert}
         >
-          <Alert>{showAlert}</Alert>
+          <Alert severity={showAlert}>Sign in {showAlert}</Alert>
         </Snackbar>
       }
       <Grid
