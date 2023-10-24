@@ -104,7 +104,6 @@ export default function LoginForm() {
               margin="normal"
               required
               fullWidth
-              data-testid="email"
               id="email"
               label="Email Address"
               name="email"
@@ -112,6 +111,7 @@ export default function LoginForm() {
               autoFocus
               onInput={inputEmailHandler}
               value={emailValue}
+              inputProps={{role:"email"}}
             />
             <TextField
               error={!validPassword}
