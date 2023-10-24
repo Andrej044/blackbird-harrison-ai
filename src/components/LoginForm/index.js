@@ -125,6 +125,7 @@ export default function LoginForm() {
               autoComplete="current-password"
               onInput={inputPasswordHandler}
               value={passwordValue}
+              inputProps={{role:"password"}}
             />
             <Button
               type="submit"
