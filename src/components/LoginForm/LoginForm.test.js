@@ -20,6 +20,15 @@ describe('testing Sign In Form', () => {
     userEvent.type(input, "example@gmail.com"); // enter valid email 
     expect(screen.getByRole('email', { name: /email/i }).value).toBe("example@gmail.com") //match entered value 
   })
+
+  test('password field testing',  () => {
+    render(<LoginForm/>);
+    const input = screen.getByRole('password', { name: /password/i });
+    expect(input).toBeInTheDocument(); // render component success 
+    expect(input.value).toBe(""); // default input value is empty string 
+    userEvent.type(input, "Example1@"); // enter valid password 
+    expect(screen.getByRole('password', { name: /password/i }).value).toBe("Example1@") //match entered value 
+  })
   
 
 })
